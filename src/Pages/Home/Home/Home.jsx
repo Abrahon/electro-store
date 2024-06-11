@@ -1,3 +1,4 @@
+import Sidebar from "../../Shared/Sidebar/Sidebar";
 import Banner from "../Banner/Banner";
 import Product from "../Product/Product";
 
@@ -6,6 +7,7 @@ const Home = () => {
         <div>
             <Banner></Banner>
             <Product></Product>
+            <Sidebar></Sidebar>
         </div>
     );
 };

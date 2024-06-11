@@ -30,7 +30,6 @@ const Login = () => {
                 timer: 1500
               });
               navigate('/');
-
             console.log(user)
             // show the user name
             

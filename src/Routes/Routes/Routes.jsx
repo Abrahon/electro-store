@@ -9,21 +9,24 @@ import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
 import MyCart from "../../Pages/Dashboard/MyCart/MyCart";
 import AllUser from "../../Pages/Dashboard/AllUser/AllUser";
 import ManageProduct from "../../Pages/Dashboard/ManageProduct/ManageProduct";
+import Blog from "../../Pages/Blog/Blog"
+import AboutUs from "../../Pages/AboutUs/AboutUs";
+import Sidebar from "../../Pages/Shared/Sidebar/Sidebar";
 
 
 export const router = createBrowserRouter([
     {
-        path:"/",
+        path:'/',
         element:<Main></Main>,
         children:[
             {
-                path: "/",
+                path: '/',
                 element:<Home></Home>
             },
             {
-                path: '/productdetails/:id',
+                path: '/productdetails/:_id',
                 element: <ProductDetails></ProductDetails>,
-                // loader:({params})=>fetch(`products.json/${params.id}`)
+                // loader:({params})=>fetch(`http://localhost:5173/productdetails/${params._id}`)
             },
             {
                 path: '/signup' ,
@@ -33,6 +36,19 @@ export const router = createBrowserRouter([
                 path: '/login',
                 element :<Login></Login>
             },
+            {
+                path:'/blog',
+                element :<Blog></Blog>
+            },
+            {
+                path: '/aboutus',
+                element:<AboutUs></AboutUs>
+            },
+            {
+                path: '/',
+                element:<Sidebar></Sidebar>
+            }
+
         ]
     },
 

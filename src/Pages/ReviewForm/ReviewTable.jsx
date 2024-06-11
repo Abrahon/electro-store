@@ -1,13 +1,27 @@
 // import React from 'react';
 
-const ReviewTable = () => {
-    // const{id, name,comment}=review;
+// import { useState } from "react";
+
+const ReviewTable = ({review}) => {
+    // const[myReviews, setMyReviews] = useState([])
+    const{name, comment} = review;
 
     return (
         <div>
-            {/* <p>{name}</p>
-            <p>{comment}</p> */}
-        </div>
+        <h2>Reviews</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>{name}</th>
+              <th>{comment}</th>
+            </tr>
+          </thead>
+          <tbody>
+         
+            
+          </tbody>
+        </table>
+      </div>
     );
 };
 
