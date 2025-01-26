@@ -12,7 +12,16 @@ import ManageProduct from "../../Pages/Dashboard/ManageProduct/ManageProduct";
 import Blog from "../../Pages/Blog/Blog"
 import AboutUs from "../../Pages/AboutUs/AboutUs";
 import Sidebar from "../../Pages/Shared/Sidebar/Sidebar";
-
+import Collection from "../../Pages/Collection/Collection";
+import Contact from "../../Pages/Contact/Contact";
+import Checkout from "../../Pages/Checkout/Checkout";
+import CartItem from "../../Pages/CartItem/CartItem";
+import ViewCart from "../../Pages/ViewCart/ViewCart";
+import Order from "../../Pages/Order/Order";
+import OrderList from "../../Pages/Dashboard/OrderList/OrderList";
+import AdminHome from "../../Pages/Dashboard/AdminHome/AdminHome";
+import Payment from "../../Pages/Dashboard/Payment/Payment";
+import UserHome from "../../Pages/Dashboard/UserHome/UserHome";
 
 export const router = createBrowserRouter([
     {
@@ -24,8 +33,12 @@ export const router = createBrowserRouter([
                 element:<Home></Home>
             },
             {
+                path: '/collection',
+                element:<Collection></Collection>
+            },
+            {
                 path: '/productdetails/:_id',
-                element: <ProductDetails></ProductDetails>,
+                element: <ProductDetails ></ProductDetails>,
                 // loader:({params})=>fetch(`http://localhost:5173/productdetails/${params._id}`)
             },
             {
@@ -45,8 +58,24 @@ export const router = createBrowserRouter([
                 element:<AboutUs></AboutUs>
             },
             {
+                path:'/contact',
+                element:<Contact></Contact>
+            },
+            {
                 path: '/',
                 element:<Sidebar></Sidebar>
+            },
+            {
+                path: '/checkout',
+                element:<Checkout></Checkout>
+            },
+            {
+                path: '/viewcart',
+                element:<ViewCart></ViewCart>
+            },
+            {
+                path: '/order-recive',
+                element: <Order></Order>
             }
 
         ]
@@ -57,7 +86,11 @@ export const router = createBrowserRouter([
         element:<Dashboard></Dashboard>,
         children:[
             {
-                path:'addproduct',
+                path:'admin-home',
+                element:<AdminHome></AdminHome>
+            },
+            {
+                path:'add-product',
                 element:<AddProduct></AddProduct>
             },
             {
@@ -65,13 +98,30 @@ export const router = createBrowserRouter([
                 element:<MyCart></MyCart>
             },
             {
-                path:'adduser',
+                path:'add-user',
                 element:<AllUser></AllUser>
             },
             {
-                path:'manageproduct',
+                path:'manage-product',
                 element:<ManageProduct></ManageProduct>
 
+            },
+            {
+                path:'order-list',
+                element:<OrderList></OrderList>
+
+            },
+            {
+                path:'all-user',
+                element:<AllUser></AllUser>
+            },
+            {
+                path:"payment",
+                element:<Payment></Payment>
+            },
+            {
+                path:"user-home",
+                element:<UserHome></UserHome>
             }
         ]
     }

@@ -9,6 +9,7 @@ const SignUp = () => {
 
     const{createUser, updateUserProfile} = useContext(AuthContext)
     const navigate = useNavigate();
+
     const handleSignUp = event =>{
         event.preventDefault();
         const form = event.target;
@@ -41,13 +42,11 @@ const SignUp = () => {
         else{
             alert("Enter the correct password")
         }
-       
-        
 
     }
     return (
         <div>
-            <div className="max-w-md mx-auto shadow-2xl p-4 rounded-md">
+            <div className="max-w-md mx-auto shadow-2xl p-4 my-10 rounded-md">
                 <div className="flex justify-between py-4">
                 <Link to='/signup'><button className="text-2xl text-blue-600 hover:text-blue-800 font-bold text-center">Sign Up</button></Link>
                 <Link to='/login'><button className="text-2xl text-blue-600 hover:text-blue-8 font-bold text-center">Sign In</button></Link>
@@ -56,7 +55,6 @@ const SignUp = () => {
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">Name</label>
                         <input type="text" id="name" name="name" className="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
-
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
@@ -71,7 +69,7 @@ const SignUp = () => {
                         <input type="password" id="confirm-password" name="confirmPassword" className="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
                     </div>
                     <div className="flex items-center justify-between">
-                        <input className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full" type="submit"/>
+                        <input className="bg-blue-700 hover:bg-blue-900 cursor-pointer text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full" value="Signup" type="Submit"/>
                     </div>
                     <div className="text-center ">
                         <h1 className="text-xl">OR</h1>

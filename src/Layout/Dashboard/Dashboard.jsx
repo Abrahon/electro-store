@@ -5,42 +5,39 @@ import { FaCalendarAlt, FaHome, FaShoppingCart, FaWallet } from "react-icons/fa"
 
 const Dashboard = () => {
     const{user} = useContext(AuthContext)
-
+    console.log(user)
     const isAdmin = true;
+
     return (
         <div>
-            <div className="drawer lg:drawer-open">
+            <div className="drawer lg:drawer-open ">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-row items-start justify-start">
+                <div className="drawer-content flex flex-row items-start justify-start my-8 mx-6">
                     {/* Page content here */}
-
                     <Outlet></Outlet>
                     <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-                    
-                 <h1>User name : {user?.displayName}</h1>
-
                 </div>
-                <div className="drawer-side">
+                <div className="drawer-side shadow-xl">
                     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80  text-white ">
+                    <ul className="menu p-4 w-80 space-y-2">
                     {/* Sidebar content here */}
 
                      {
                         isAdmin?
                         <>
-                            <li className='bg-none'><NavLink to="/dashboard"><FaHome></FaHome>Admin Home</NavLink></li>
-                            <li><NavLink to="/dashboard/additem"><FaCalendarAlt></FaCalendarAlt>AddItem</NavLink></li>
-                            <li><NavLink to="/dashboard/manageitem"><FaWallet></FaWallet>Manage Items</NavLink></li>
-                            <li><NavLink to="/dashboard/mycart"><FaShoppingCart></FaShoppingCart>Manage Bookings</NavLink></li>
-                            <li ><NavLink to='/dashboard/alluser'><FaHome></FaHome>All User</NavLink> </li>
+                            <li className='font-semibold'><NavLink to="/dashboard/admin-home"><FaHome></FaHome>Admin Home</NavLink></li>
+                            <li className="font-semibold "><NavLink to="/dashboard/add-product"><FaCalendarAlt></FaCalendarAlt>AddItem</NavLink></li>
+                            <li className="font-semibold"><NavLink to="/dashboard/manage-product"><FaWallet></FaWallet>Manage Items</NavLink></li>
+                            <li className="font-semibold"><NavLink to="/dashboard/mycart"><FaShoppingCart></FaShoppingCart>Manage Bookings</NavLink></li>
+                            <li className="font-semibold"><NavLink to='/dashboard/all-user'><FaHome></FaHome>All User</NavLink> </li>
                             
                         </> : <>
-                        <li className="my-2"><Link to='/dashboard'><FaHome></FaHome>User Home</Link></li>
-                            <li><Link to='/dashboard/mycart'><FaShoppingCart></FaShoppingCart>My Cart</Link></li>
-                            <li><Link to='/dashboard/paymenthistory'><FaWallet></FaWallet>Payment History</Link></li> 
+                        <li className="my-2"><NavLink to='/dashboard/user-home'><FaHome></FaHome>User Home</NavLink></li>
+                            <li className='font-semibold'><NavLink to='/dashboard/mycart'><FaShoppingCart></FaShoppingCart>My Cart</NavLink></li>
+                            <li className='font-semibold'><NavLink  to='/dashboard/payment'><FaWallet></FaWallet>Payment History</NavLink></li> 
+                            <li className='font-semibold'><NavLink  to='/dashboard/order-list'><FaWallet></FaWallet>Orders</NavLink></li> 
+                            <li className='font-semibold'><NavLink  to='/dashboard/review'><FaWallet></FaWallet>Reviews</NavLink></li> 
                             
-                            
-
                         </>
                     } 
                   

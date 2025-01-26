@@ -1,77 +1,27 @@
-import { useEffect, useState } from "react";
-import ProductCard from "../ProductCard/ProductCard";
+import React, { useContext } from 'react'
+import { ShopContext } from '../../../context/ShopProvider'
+import ProductCard from '../ProductCard/ProductCard.jsx'
 
 const Product = () => {
-  const [products, setProducts] = useState([]);
-  const [categoryFilter, setCategoryFilter] = useState("all");
-  const[page,setPage] = useState(1)
-
-  useEffect(() => {
-    fetch("products.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data))
-      .catch((error) => console.error("Error fetching products:", error));
-  }, []);
-
-  const handleCategoryChange = (e) => {
-    setCategoryFilter(e.target.value);
-  };
-
-  const filteredProducts =
-    categoryFilter === "all"
-      ? products
-      : products.filter((product) => product.category === categoryFilter);
-  const categories = [...new Set(products.map((product) => product.category))];
-
-  const setPageHandeler = (selectedPage)=>{
-    if(
-        selectedPage>=1 &&
-        selectedPage<=products.length/10 ||
-        selectedPage !==page
-    )
-    setPage(selectedPage)
-  }
-
+  const{products} = useContext(ShopContext);
+  console.log(products)
   return (
-    <div className="my-20">
-    <h1>total: {products.length}</h1>
-      <select value={categoryFilter} onChange={handleCategoryChange}>
-        <option value="all">All Categories</option>
-        {categories.map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
-
-      <div className="grid grid-cols-1 sx:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 my-10 ">
-        {filteredProducts?.slice(page*10 - 10, page*10).map((product) => (
-          <ProductCard key={product.id} product={product}></ProductCard>
-        ))}
+    <div className='flex flex-col md:flex-row gap-6'>
+      {/* left side  */}
+      <div className='w-[300px] mx-auto text-center'>
+        <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus numquam illum eum autem quos laudantium, harum, qui ipsa, libero commodi magnam? Explicabo ut saepe commodi dolorem repudiandae iste. Consequuntur, placeat?</h1>
       </div>
+      {/* right side  */}
+      <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6'>
       {
-       products.length>0 && <div className="paigination">
-       
-        
-      <div className=" space-x-4 font-bold cursor-pointer">
-      <span className={page>1? " " : "opacity-0"}  onClick={()=>setPageHandeler(page-1)}>Prev</span>
-      {
-            [...Array(Math.ceil(products.length / 10))].map((_, i) => {
-                return <span  onClick={()=>setPageHandeler(i+1)} className={page === i+1 ? "px-4 py-2 bg-green-700" :""}
-                 key={i}>
-                    {i + 1}
-                    </span>;
-            })
-            
-        }
-        <span className={page<products.length/10 ? " " : "opacity-0"} onClick={()=>setPageHandeler(page+1)}>Next</span>
-        </div>
-        
-       </div>
+        products?.map(product=><ProductCard
+        key={product._id}
+        product={product}
+        ></ProductCard>)
       }
-      </div>
+    </div>
+    </div>
+  )
+}
 
-  );
-};
-
-export default Product;
+export default Product

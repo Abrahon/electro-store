@@ -16,7 +16,9 @@ const SidebarProvider = ({ children }) => {
 
   return (
     <div>
-      <SidebarContext.Provider value={sidebarInfo}>{children}</SidebarContext.Provider>
+      <SidebarContext.Provider value={sidebarInfo}>
+        {children}
+        </SidebarContext.Provider>
     </div>
   );
 };

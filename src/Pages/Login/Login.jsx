@@ -40,7 +40,7 @@ const Login = () => {
     }
     return (
         <div>
-        <div className="max-w-md mx-auto shadow-2xl p-4 rounded-md">
+        <div className="max-w-md mx-auto my-10 shadow-2xl p-4 rounded-md">
             <div className="flex justify-between py-4">
             <Link to='/signup'><button className="text-2xl text-blue-600 hover:text-blue-800 font-bold text-center">Sign Up</button></Link>
             <Link to='/login'><button className="text-2xl text-blue-600 hover:text-blue-8 font-bold text-center">Sign In</button></Link>
@@ -58,7 +58,7 @@ const Login = () => {
                 
                 <div className="flex items-center justify-between">
                     
-                    <input className='bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full' value="signin" type="submit" />
+                    <input className='bg-blue-700 hover:bg-blue-900 cursor-pointer text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full' value="Signin" type="submit" />
                 </div>
             </form>
 

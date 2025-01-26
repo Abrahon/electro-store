@@ -1,77 +1,78 @@
-// import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-// import ProductCard from "../ProductCard/ProductCard";
-
-import { useParams } from "react-router-dom";
-import { CartContext } from "../../context/CartProvider";
-import Sidebar from "../Shared/Sidebar/Sidebar";
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { FaStar } from 'react-icons/fa6';
+import { ShopContext } from '../../context/ShopProvider';
+import { CartContext } from '../../context/CartProvider';
+import RelatedProducts from '../../Components/RelatedProducts/RelatedProducts';
+import ReviewForm from '../../Components/ReviewSection';
 
 const ProductDetails = () => {
   const { _id } = useParams();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const{addToCart} = useContext(CartContext)
+  // const { products } = useContext(ShopContext); // Products from ShopContext
+  const { addToCart } = useContext(CartContext);
+
+  const [productsData, setProductsData] = useState([]); // Fetched data
+  const [selectedProduct, setSelectedProduct] = useState(null); // Product to display
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch("/products.json");
+        const response = await fetch('http://localhost:5000/product');
         const data = await response.json();
-        console.log(data);
-        const product = data.find((item) => item._id === _id);
+        setProductsData(data);
 
-        console.log(product);
-        setProduct(product);
-        setLoading(false);
-      } catch (err) {
-        setError(err);
-        setLoading(false);
+        // Find selected product from fetched data
+        const product = data.find((p) => p._id === _id);
+        setSelectedProduct(product);
+      } catch (error) {
+        console.error('Error fetching product data:', error);
       }
     };
 
-    fetchProduct();
+    fetchData();
   }, [_id]);
 
-  if (loading) {
-    return <div>Loading...</div>;
+  // Ensure selectedProduct is valid before rendering
+  if (!selectedProduct) {
+    return <div>Loading product details...</div>;
   }
 
-  if (error) {
-    return <div>Error loading product details</div>;
-  }
-
-  if (!product) {
-    return <div>Product not found</div>;
-  }
+  const { name, description, image, price } = selectedProduct;
 
   return (
-    <section className="flex items-center pt-32 pb-12 lg:py-32 py-20 ">
-      <div className="container mx-auto">
-        <div className="flex flex-col lg:flex-row items-center">
-          <div className="flex flex-1 justify-center items-center mb-8 lg:mb-0">
-            <img
-              className="max-w-[400px] lg:max-w-sm"
-              src={product.image}
-            />
-          </div>
-          <div className="flex-1 text-center lg:text-left ">
-            <h1 className="text-[26px] font-medium mb-2 max-w-[450px] mx-auto lg:mx-0">
-              {product.name}
-            </h1>
-            <p className="mb-8">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-              totam tempore dolor hic, in rem? Nostrum aliquid assumenda
-              asperiores quae sit quibusdam sint atque quasi fugit eaque,
-              placeat eius quisquam.
-            </p>
-            <p className="text-red-500">Price: ${product.price}</p>
-            <button onClick={()=>addToCart(_id)} className="bg-primary text-white px-6 py-2 mt-4 rounded-lg">Ad To Cart</button>
+    <div className="mt-28 max-w-screen-2xl container mx-auto">
+      <div className="p-3 max-w-7xl m-auto">
+        <div className="sm:mt-10 my-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div>
+              <img className="w-full" src={image} alt={name} />
+            </div>
+            <div>
+              <h1 className="text-2xl font-semibold">{name}</h1>
+              <p className="mt-3 text-gray-600 text-base leading-6 text-justify">{description}</p>
+              <span className="flex justify-start items-center my-2 text-yellow-400 text-2xl gap-1 sm:my-4">
+                <FaStar />
+                <FaStar />
+                <FaStar />
+                <FaStar />
+                <FaStar />
+              </span>
+              <p className="text-3xl text-black font-bold sm:text-2xl">${price}</p>
+              <button
+                onClick={() => addToCart(selectedProduct, _id)}
+                className="uppercase mt-5 bg-black hover:bg-black px-6 py-3 rounded-full text-white font-semibold"
+              >
+                Add to Cart
+              </button>
+            </div>
           </div>
         </div>
+        {/* Review Form */}
+        <ReviewForm />
+        {/* Related Products */}
+        <RelatedProducts selectedProduct={selectedProduct} products={productsData} />
       </div>
-      <Sidebar></Sidebar>
-    </section>
+    </div>
   );
 };
 

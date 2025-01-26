@@ -1,14 +1,16 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 import { SidebarContext } from "../../../context/SidebarProvider";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaHeart, FaSearch, FaShoppingCart } from "react-icons/fa";
 import { CartContext } from "../../../context/CartProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const { isOpen, setIsOpen } = useContext(SidebarContext);
   const { itemAmount, cart } = useContext(CartContext);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [items, setItems] = useState([])
   console.log(cart);
 
   console.log(user?.displayName);
@@ -19,19 +21,41 @@ const Navbar = () => {
       .catch((err) => console.log(err));
   };
 
+  // search
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // const filteredItems = items.filter(item =>
+  //   item?.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
+
+  // useEffect(()=>{
+  //   fetch('products.json')
+  //   .then(res=>res.json())
+  //   .then(data=>setItems(data))
+
+  // },[])
+
   const NavSections = (
     <>
-      <li className="font-semibold">
-        <Link to="/">Home</Link>
+      <li className="uppercase">
+        <NavLink to="/">Home</NavLink>
       </li>
-      <li className="font-semibold">
-        <Link to="/aboutus">About</Link>
+      <li className="uppercase">
+        <NavLink to="/collection">Collection</NavLink>
       </li>
-      <li className="font-semibold">
-        <Link to="/blog">Blog</Link>
+      <li className="uppercase">
+        <NavLink to="/aboutus">About</NavLink>
       </li>
-      <li className="font-semibold">
-        <Link to="/dashboard/mycart">DASBOARD</Link>
+      <li className="uppercase">
+        <NavLink to="/blog">Blog</NavLink>
+      </li>
+      <li className="uppercase">
+        <NavLink to="/contact">Contact</NavLink>
+      </li>
+      <li className="uppercase">
+        <NavLink to="/dashboard">DASBOARD</NavLink>
       </li>
       {user?.email ? (
         <>
@@ -46,16 +70,17 @@ const Navbar = () => {
         </>
       ) : (
         <>
-          <li className="font-semibold">
-            <Link to="/login">SignIn</Link>
+          <li className="uppercase">
+            <NavLink to="/login">SignIn</NavLink>
           </li>
         </>
       )}
     </>
   );
   return (
-    <div>
-      <div className="navbar">
+    <div className="flex items-center gap-6">
+     
+       <div className="navbar">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -82,26 +107,37 @@ const Navbar = () => {
             </ul>
           </div>
           <a className="btn btn-ghost text-2xl text-upercase  font-bold text-blue-700">
-            <i>ELECTRO</i>
+            <Link to='/'><i>ELECTRO</i></Link>
           </a>
+         
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-4 ">{NavSections}</ul>
         </div>
-        <div
-          onClick={() => setIsOpen(!isOpen)}
-          className="navbar-end cursor-pointer text-2xl text-yellow-200 mr-2"
-        >
-          <FaShoppingCart></FaShoppingCart>
+        
+          {/* search */}
+        
+        <div className="navbar-end cursor-pointer text-2xl flex float-end items-center space-x-4 ">
+        {/* <p>{0}</p> */}
+        <FaSearch className="text-2xl "></FaSearch>
+          <FaHeart className="text-none"></FaHeart>
+          
+          
+          <div onClick={() => setIsOpen(!isOpen)} className="space-y-0 flex items-center">
+          <FaShoppingCart ></FaShoppingCart>
           {cart ? (
-            <><span className="text-sm">{itemAmount}</span></>
+            <>
+              <span className="text-sm bg-green-500 w-[20px] rounded-full text-center -ml-1 ">{itemAmount}</span>
+            </>
           ) : (
             <>
               <span>0</span>
             </>
           )}
+          </div>
         </div>
-      </div>
+        </div>
+      
     </div>
   );
 };
