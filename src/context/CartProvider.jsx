@@ -16,6 +16,12 @@ const CartProvider = ({ children }) => {
         if (response.ok) {
           const data = await response.json();
           setCart(data);
+
+          // Update itemAmount based on fetched cart data
+          const amount = data.reduce((accumulator, item) => {
+            return accumulator + item.amount;
+          }, 0);
+          setItemAmount(amount);
         } else {
           console.error("Failed to fetch cart data:", response.statusText);
         }
@@ -27,7 +33,7 @@ const CartProvider = ({ children }) => {
     fetchCartData();
   }, []);
 
-  // Calculate total whenever the cart changes
+  // Recalculate total whenever the cart changes
   useEffect(() => {
     const total = cart.reduce((accumulator, currentItem) => {
       return accumulator + currentItem.price * currentItem.amount;
@@ -35,14 +41,12 @@ const CartProvider = ({ children }) => {
     setTotal(total);
   }, [cart]);
 
-  // Calculate the total item amount whenever the cart changes
+  // Recalculate itemAmount whenever the cart changes
   useEffect(() => {
-    if (cart) {
-      const amount = cart.reduce((accumulator, currentItem) => {
-        return accumulator + currentItem.amount;
-      }, 0);
-      setItemAmount(amount);
-    }
+    const amount = cart.reduce((accumulator, currentItem) => {
+      return accumulator + currentItem.amount;
+    }, 0);
+    setItemAmount(amount);
   }, [cart]);
 
   const addToCart = async (product, _id) => {
@@ -114,7 +118,7 @@ const CartProvider = ({ children }) => {
           return item;
         }
       });
-      setCart(newCart)
+      setCart(newCart);
     }
   };
 
@@ -156,9 +160,7 @@ const CartProvider = ({ children }) => {
   };
 
   return (
-    <div>
-      <CartContext.Provider value={cartInfo}>{children}</CartContext.Provider>
-    </div>
+    <CartContext.Provider value={cartInfo}>{children}</CartContext.Provider>
   );
 };
 

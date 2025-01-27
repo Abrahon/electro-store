@@ -28,7 +28,7 @@ const Dashboard = () => {
                             <li className='font-semibold'><NavLink to="/dashboard/admin-home"><FaHome></FaHome>Admin Home</NavLink></li>
                             <li className="font-semibold "><NavLink to="/dashboard/add-product"><FaCalendarAlt></FaCalendarAlt>AddItem</NavLink></li>
                             <li className="font-semibold"><NavLink to="/dashboard/manage-product"><FaWallet></FaWallet>Manage Items</NavLink></li>
-                            <li className="font-semibold"><NavLink to="/dashboard/mycart"><FaShoppingCart></FaShoppingCart>Manage Bookings</NavLink></li>
+                            {/* <li className="font-semibold"><NavLink to="/dashboard/mycart"><FaShoppingCart></FaShoppingCart>Manage Bookings</NavLink></li> */}
                             <li className="font-semibold"><NavLink to='/dashboard/all-user'><FaHome></FaHome>All User</NavLink> </li>
                             
                         </> : <>

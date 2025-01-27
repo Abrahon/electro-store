@@ -59,14 +59,14 @@ const CartItem = ({ item }) => {
   //         </div>
   //       </div>
      
-      
   //  </div>
+  
     <div className="flex justify-between items-center gap-4 gap-x-4 py-2 border-b border-gray-200 w-full font-light text-gray-500">
       <div onClick={()=>removeCart(_id)} className="text-xl cursor-pointer"><IoMdClose className="text-gray-500 hover:text-red-700 transition"></IoMdClose>
    </div> 
       <div className="flex justify-around w-[150px] items-center gap-2 ">
-        <img className="w-[50px]" src={image} alt="product"  />
-        <p className="lg:text-ms lg:font-semibold ">{name}</p>
+        <img className="w-[32px]" src={image} alt="product"  />
+        <p className="lg:text-ms lg:font-semibold ">{name.slice(0, 15)}</p>
       </div>
       <div className="flex flex-1 max-w-[80px] items-center border text-primary font-medium" >
       <div onClick={()=>decreaseAmount(_id)} className="flex-1  flex justify-center items-center cursor-pointer">
